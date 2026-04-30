@@ -92,7 +92,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 1px;
 
   margin-bottom: 18px;
    padding-right: 12px;
@@ -333,6 +333,64 @@
   box-shadow: var(--shadow-btn);
 }
 
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.popup-box {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+  animation: pop 0.25s ease-out;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.popup-box h2 {
+  margin-bottom: 10px;
+  color: #e74c3c;
+}
+
+.popup-box p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.popup-btn {
+  background: #6c5ce7;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.popup-btn:hover {
+  background: #5946d2;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 /* ---- Responsive ---- */
 @media (max-width: 520px) {
   .login-card {

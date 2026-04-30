@@ -26,20 +26,43 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  // popup states
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // ✅ email validation
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = () => {
     console.log("Form submitted:", formData);
 
-    if (formData.email && formData.password) {
-      navigate("/dashboard");
-    } else {
-      alert("Please fill in all fields");
+    const { platform, email, password } = formData;
+
+    // check empty fields
+    if (!platform || !email || !password) {
+      setErrorMsg("Please fill out all required fields");
+      setShowError(true);
+      return;
     }
+
+    // check email format
+    if (!isValidEmail(email)) {
+      setErrorMsg("Please enter a valid email address");
+      setShowError(true);
+      return;
+    }
+
+    // success
+    navigate("/dashboard");
   };
 
   return (
@@ -48,7 +71,7 @@ export default function Login() {
 
         <div className="login-card">
 
-          {/* ✅ LOGO INSIDE CARD */}
+          {/* LOGO */}
           <div className="login-logo-area">
             <img
               src={loginlogo}
@@ -58,7 +81,7 @@ export default function Login() {
             <span className="login-brand">connexara</span>
           </div>
 
-          {/* CARD HEADER */}
+          {/* HEADER */}
           <div className="login-card-header">
             <h1 className="login-title">Sign In</h1>
             <p className="login-subtitle">
@@ -147,8 +170,6 @@ export default function Login() {
                   Remember me
                 </span>
               </label>
-
-              
             </div>
 
             {/* Button */}
@@ -163,6 +184,23 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+      {/* ================= POPUP ================= */}
+      {showError && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2>⚠️ Error</h2>
+            <p>{errorMsg}</p>
+
+            <button
+              className="popup-btn"
+              onClick={() => setShowError(false)}
+            >
+              Okay
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
