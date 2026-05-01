@@ -43,10 +43,9 @@
    ============================== */
 .dash-bg {
   min-height: 100vh;
-  background: #ffffff;
+  background: transparent;
   font-family: 'Nunito', sans-serif;
-  position: relative;
-  padding: 0 0 60px 0;
+  padding: 0;
 }
 
 /* ==============================
@@ -113,10 +112,12 @@
   transform: translateY(0);
 }
 
-
+/* ==============================
+   Main Content Area
+   ============================== */
 .dash-content {
-  width: auto;
-  max-width: none;
+  max-width: 1000;
+  width: 100%;
   margin: 0;
   padding: 24px 24px 40px;
   display: flex;
@@ -725,17 +726,4 @@
   .dash-btn {
     padding: 7px 10px;
   }
-}
-.app-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.dash-bg {
-  margin-left: 240px;
-  width: calc(100% - 240px);
-  min-height: 100vh;
-  padding: 18px 24px 24px;
-  background: #ffffff;
-  box-sizing: border-box;
 }

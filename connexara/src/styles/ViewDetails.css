@@ -39,10 +39,10 @@
 /* ── Background ── */
 .vd-bg {
   min-height: 100vh;
-  background: #ffffff;
+  background: transparent;
   font-family: 'Nunito', sans-serif;
   position: relative;
-  padding-bottom: 60px;
+  padding-bottom: 24px;
 }
 
 /* ── Logo ── */
@@ -89,7 +89,7 @@
 .vd-content {
   max-width: 860px;
   margin: 0 auto;
-  padding: 130px 24px 40px;
+  padding: 24px 24px 40px;
   display: flex; flex-direction: column; gap: 28px;
   animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both;
 }

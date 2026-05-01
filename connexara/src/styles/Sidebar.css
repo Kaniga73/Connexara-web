@@ -344,3 +344,7 @@
   gap: 8px;
   padding: 14px 10px;
 }
+.sidebar-collapsed .sidebar-logout-btn {
+  margin-left: 6px;
+  margin-right: 6px;
+}

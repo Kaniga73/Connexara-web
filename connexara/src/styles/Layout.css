@@ -1,0 +1,20 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar space handled here */
+.main-content {
+  flex: 1;
+  margin-left: 240px; /* MUST match sidebar width */
+  min-height: 100vh;
+  background: #ffffff; /* white background */
+  padding: 24px;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease;
+}
+
+/* When sidebar collapsed */
+.sidebar.collapsed ~ .main-content {
+  margin-left: 80px;
+}
