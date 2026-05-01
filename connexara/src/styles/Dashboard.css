@@ -113,13 +113,12 @@
   transform: translateY(0);
 }
 
-/* ==============================
-   Main Content Area
-   ============================== */
+
 .dash-content {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 130px 24px 40px;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 24px 24px 40px;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -708,7 +707,7 @@
   }
 
   .dash-content {
-    padding: 110px 14px 40px;
+    padding: 20px 14px 40px;
   }
 
   .dash-card-header,
@@ -729,19 +728,14 @@
 }
 .app-layout {
   display: flex;
+  min-height: 100vh;
 }
 
-/* Sidebar width control */
-.sidebar {
-  width: 250px;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-}
-
-/* Push dashboard content right */
 .dash-bg {
-  margin-left: 250px;
-  width: calc(100% - 250px);
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  min-height: 100vh;
+  padding: 18px 24px 24px;
+  background: #ffffff;
+  box-sizing: border-box;
 }

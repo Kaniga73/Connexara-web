@@ -8,6 +8,7 @@ import {
   faBuilding,
   faUserTie,
   faChalkboardTeacher,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Sample college data passed via route state or props — using static for now
@@ -40,6 +41,11 @@ export default function ViewDetails() {
     setEditingCollege(false);
   };
 
+  const cancelCollegeEdit = () => {
+    setCollegeEdit({ ...college });
+    setEditingCollege(false);
+  };
+
   return (
     <div className="vd-bg">
      {/* Content */}
@@ -53,6 +59,26 @@ export default function ViewDetails() {
             <div>
               <h1 className="vd-page-title">College Details</h1>
               <p className="vd-page-sub">View and manage college information</p>
+            </div>
+            <div className="vd-edit-actions" style={{ marginLeft: "auto" }}>
+              {editingCollege ? (
+                <>
+                  <button className="vd-save-btn" onClick={saveCollegeEdit}>
+                    Save
+                  </button>
+                  <button className="vd-cancel-btn" onClick={cancelCollegeEdit}>
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="vd-edit-college-btn"
+                  onClick={() => setEditingCollege(true)}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                  <span>Edit</span>
+                </button>
+              )}
             </div>
           </div>
 

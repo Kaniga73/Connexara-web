@@ -38,7 +38,7 @@ export default function Sidebar({ onLogout, onCollapse }) {
             alt="Connexara Logo"
             className="sidebar-logo-img"
           />
-          {!collapsed && <span className="sidebar-brand">connexara</span>}
+          {!collapsed && <span className="sidebar-brand">Connexara</span>}
         </div>
 
         {/* Collapse toggle */}
