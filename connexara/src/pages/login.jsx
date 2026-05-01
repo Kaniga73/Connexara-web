@@ -36,7 +36,6 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ email validation
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -78,7 +77,7 @@ export default function Login() {
               alt="Connexara Logo"
               className="login-logo-img"
             />
-            <span className="login-brand">connexara</span>
+            <span className="login-brand">Connexaara</span>
           </div>
 
           {/* HEADER */}

@@ -1,0 +1,413 @@
+/* ============================
+   CollegeDetails.css — Connexara
+   Consistent with login.css & Dashboard.css
+   ============================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --blue-primary: #2c3e9e;
+  --blue-dark: #1e2d7d;
+  --blue-light: #3d52c4;
+  --blue-hover: #233190;
+  --white: #ffffff;
+  --off-white: #f7f8fc;
+  --text-dark: #1a2340;
+  --text-mid: #4a5568;
+  --text-light: #8a95aa;
+  --border-color: #dde3f0;
+  --input-bg: #f4f6fb;
+  --input-focus-bg: #eef1fa;
+  --shadow-card: 0 20px 60px rgba(44, 62, 158, 0.12), 0 4px 16px rgba(44, 62, 158, 0.07);
+  --shadow-btn: 0 8px 24px rgba(44, 62, 158, 0.35);
+  --radius-card: 20px;
+  --radius-input: 12px;
+  --radius-btn: 10px;
+  --red: #e53e3e;
+  --red-hover: #c53030;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==============================
+   Background
+   ============================== */
+.cd-bg {
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+/* ==============================
+   Logo — top left
+   ============================== */
+.cd-logo-area {
+  position: fixed;
+  top: 28px;
+  left: 36px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 100;
+}
+
+.cd-logo-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(44, 62, 158, 0.2);
+}
+
+.cd-brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  letter-spacing: -0.3px;
+}
+
+/* ==============================
+   Logout — top right
+   ============================== */
+.cd-logout-btn {
+  position: fixed;
+  top: 36px;
+  right: 36px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(229, 62, 62, 0.35);
+  transition: all 0.22s ease;
+}
+
+.cd-logout-btn:hover {
+  background: var(--red-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(229, 62, 62, 0.45);
+}
+
+/* ==============================
+   Main Content
+   ============================== */
+.cd-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 130px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==============================
+   Page Header
+   ============================== */
+.cd-card-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 26px 36px 0;
+}
+
+.cd-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: var(--white);
+  color: var(--blue-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(44, 62, 158, 0.08);
+  white-space: nowrap;
+}
+
+.cd-back-btn:hover {
+  background: var(--input-focus-bg);
+  border-color: var(--blue-primary);
+  transform: translateX(-2px);
+}
+
+.cd-page-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  letter-spacing: -0.5px;
+}
+
+.cd-page-sub {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ==============================
+   Card
+   ============================== */
+.cd-card {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  overflow: hidden;
+}
+
+/* Card Header */
+.cd-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 26px 36px 22px;
+  border-bottom: 1.5px solid var(--border-color);
+  background: var(--off-white);
+}
+
+.cd-card-title-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--input-focus-bg);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue-primary);
+  font-size: 1.1rem;
+  border: 1.5px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.cd-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.cd-card-sub {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ==============================
+   Form
+   ============================== */
+.cd-form {
+  padding: 32px 36px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Each row: label left, input right */
+.cd-form-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: start;
+  gap: 16px;
+}
+
+.cd-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  padding-top: 13px;
+}
+
+.cd-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Input wrapper with icon */
+.cd-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-input);
+  transition: all 0.22s ease;
+}
+
+.cd-input-wrapper:focus-within {
+  background: var(--input-focus-bg);
+  border-color: var(--blue-primary);
+  box-shadow: 0 0 0 3.5px rgba(44, 62, 158, 0.11);
+}
+
+.cd-input-wrapper.cd-input-error {
+  border-color: var(--red);
+  background: #fff5f5;
+}
+
+.cd-input-wrapper.cd-input-error:focus-within {
+  box-shadow: 0 0 0 3.5px rgba(229, 62, 62, 0.1);
+}
+
+.cd-input-icon {
+  padding: 0 14px;
+  color: var(--blue-primary);
+  opacity: 0.55;
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.cd-input-wrapper:focus-within .cd-input-icon {
+  opacity: 1;
+}
+
+.cd-input {
+  flex: 1;
+  padding: 13px 14px 13px 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.cd-input::placeholder {
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+/* Error message */
+.cd-error-msg {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--red);
+  padding-left: 4px;
+}
+
+/* ==============================
+   Divider
+   ============================== */
+.cd-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 4px 0;
+}
+
+/* ==============================
+   Form Footer — Next button
+   ============================== */
+.cd-form-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.cd-next-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 48px;
+  background: var(--blue-primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: all 0.22s ease;
+  letter-spacing: 0.3px;
+}
+
+.cd-next-btn:hover {
+  background: var(--blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(44, 62, 158, 0.48);
+}
+
+.cd-next-btn:active {
+  transform: translateY(0);
+}
+
+/* ==============================
+   Responsive
+   ============================== */
+@media (max-width: 600px) {
+  .cd-logo-area {
+    top: 18px;
+    left: 18px;
+  }
+
+  .cd-logo-img {
+    width: 46px;
+    height: 46px;
+  }
+
+  .cd-brand {
+    font-size: 1.35rem;
+  }
+
+  .cd-logout-btn {
+    top: 24px;
+    right: 18px;
+    padding: 9px 14px;
+    font-size: 0.82rem;
+  }
+
+  .cd-content {
+    padding: 110px 14px 40px;
+  }
+
+  .cd-form-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .cd-label {
+    padding-top: 0;
+  }
+
+  .cd-card-header,
+  .cd-form {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .cd-next-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
