@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ ADDED
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import "../styles/Dashboard.css";
 import loginlogo from "../assets/loginlogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +26,7 @@ const initialColleges = [
 export default function Dashboard() {
   const navigate = useNavigate(); 
 
-  const [colleges, setColleges] = useState(initialColleges);
+    const [colleges, setColleges] = useState(initialColleges);
   const [search, setSearch] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(null);
@@ -235,19 +235,11 @@ export default function Dashboard() {
                             <>
                               <button
                                 className="dash-btn dash-view-btn"
-                                onClick={() => console.log("View", college)}
+                                onClick={() => navigate(`/view-details/${college.id}`)}
                                 title="View"
                               >
                                 <FontAwesomeIcon icon={faEye} />
                                 <span>View</span>
-                              </button>
-                              <button
-                                className="dash-btn dash-edit-btn"
-                                onClick={() => startEdit(college)}
-                                title="Edit"
-                              >
-                                <FontAwesomeIcon icon={faPenToSquare} />
-                                <span>Edit</span>
                               </button>
                               <button
                                 className="dash-btn dash-delete-btn"

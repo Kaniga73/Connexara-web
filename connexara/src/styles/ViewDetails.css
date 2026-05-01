@@ -1,0 +1,505 @@
+/* ============================
+   ViewDetails.css — Connexara
+   Consistent with login / Dashboard / CollegeDetails
+   ============================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --blue-primary: #2c3e9e;
+  --blue-dark:    #1e2d7d;
+  --blue-light:   #3d52c4;
+  --blue-hover:   #233190;
+  --white:        #ffffff;
+  --off-white:    #f7f8fc;
+  --text-dark:    #1a2340;
+  --text-mid:     #4a5568;
+  --text-light:   #8a95aa;
+  --border-color: #dde3f0;
+  --input-bg:     #f4f6fb;
+  --input-focus:  #eef1fa;
+  --shadow-card:  0 20px 60px rgba(44,62,158,.12), 0 4px 16px rgba(44,62,158,.07);
+  --shadow-btn:   0 8px 24px rgba(44,62,158,.35);
+  --radius-card:  20px;
+  --radius-input: 12px;
+  --radius-btn:   10px;
+  --red:          #e53e3e;
+  --red-hover:    #c53030;
+  --red-light:    #fff5f5;
+  --green:        #276749;
+  --green-light:  #f0fff4;
+  --green-border: #9ae6b4;
+  --purple:       #6b46c1;
+  --purple-light: #faf5ff;
+  --purple-border:#d6bcfa;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Background ── */
+.vd-bg {
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+/* ── Logo ── */
+.vd-logo-area {
+  position: fixed;
+  top: 28px; left: 36px;
+  display: flex; align-items: center; gap: 12px;
+  z-index: 100;
+}
+.vd-logo-img {
+  width: 64px; height: 64px;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(44,62,158,.2);
+}
+.vd-brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.85rem; font-weight: 700;
+  color: var(--blue-dark); letter-spacing: -.3px;
+}
+
+/* ── Logout ── */
+.vd-logout-btn {
+  position: fixed;
+  top: 36px; right: 36px;
+  z-index: 100;
+  display: flex; align-items: center; gap: 8px;
+  padding: 11px 22px;
+  background: var(--red); color: var(--white);
+  border: none; border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .88rem; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(229,62,62,.35);
+  transition: all .22s ease;
+}
+.vd-logout-btn:hover {
+  background: var(--red-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(229,62,62,.45);
+}
+
+/* ── Content ── */
+.vd-content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 130px 24px 40px;
+  display: flex; flex-direction: column; gap: 28px;
+  animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── Page Header ── */
+.vd-card-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 32px 18px;
+}
+.vd-page-header {
+  display: flex; align-items: center; gap: 18px;
+}
+.vd-back-btn {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 18px;
+  background: var(--white); color: var(--blue-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .84rem; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(44,62,158,.08);
+  transition: all .2s;
+  white-space: nowrap;
+}
+.vd-back-btn:hover {
+  background: var(--input-focus);
+  border-color: var(--blue-primary);
+  transform: translateX(-2px);
+}
+.vd-page-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.9rem; font-weight: 700;
+  color: var(--blue-dark); letter-spacing: -.5px;
+}
+.vd-page-sub {
+  font-size: .88rem; color: var(--text-mid); font-weight: 500; margin-top: 4px;
+}
+
+/* ── Card ── */
+.vd-card {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255,255,255,.85);
+  overflow: hidden;
+}
+
+.vd-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 32px 18px;
+  border-bottom: 1.5px solid var(--border-color);
+  background: var(--off-white);
+}
+.vd-card-header-left {
+  display: flex; align-items: center; gap: 14px;
+}
+.vd-card-icon {
+  width: 44px; height: 44px;
+  background: var(--input-focus);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue-primary); font-size: 1.1rem;
+  border: 1.5px solid var(--border-color);
+  flex-shrink: 0;
+}
+.vd-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem; font-weight: 700; color: var(--text-dark);
+}
+.vd-card-sub {
+  font-size: .8rem; color: var(--text-light); font-weight: 500; margin-top: 2px;
+}
+
+/* ── College Edit Button ── */
+.vd-edit-college-btn {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 20px;
+  background: var(--input-focus); color: var(--blue-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .84rem; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.vd-edit-college-btn:hover {
+  background: var(--blue-primary); color: var(--white);
+  border-color: var(--blue-primary);
+  box-shadow: 0 4px 12px rgba(44,62,158,.25);
+}
+
+.vd-edit-actions { display: flex; gap: 8px; }
+
+.vd-save-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 18px;
+  background: var(--green-light); color: var(--green);
+  border: 1.5px solid var(--green-border);
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .84rem; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.vd-save-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
+
+.vd-cancel-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 18px;
+  background: var(--input-bg); color: var(--text-mid);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .84rem; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.vd-cancel-btn:hover { background: var(--text-mid); color: var(--white); }
+
+/* ── Info Grid ── */
+.vd-form {
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.vd-info-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-color);
+  gap: 16px;
+}
+.vd-info-row:last-child { border-bottom: none; }
+
+.vd-info-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: .82rem; font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.vd-info-value {
+  font-size: .95rem; font-weight: 600; color: var(--text-dark);
+}
+.vd-code-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  background: var(--input-focus);
+  color: var(--blue-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: 6px;
+  font-size: .82rem; font-weight: 700;
+  font-family: 'Poppins', sans-serif; letter-spacing: .4px;
+}
+.vd-info-input {
+  padding: 9px 12px;
+  background: var(--input-focus);
+  border: 1.5px solid var(--blue-primary);
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: .9rem; font-weight: 600; color: var(--text-dark);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44,62,158,.1);
+  width: 100%;
+}
+
+/* ── Dept Header Buttons ── */
+.vd-dept-header-btns { display: flex; gap: 10px; }
+
+.vd-add-dept-btn {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 18px;
+  background: var(--blue-primary); color: var(--white);
+  border: none; border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .84rem; font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: all .22s;
+}
+.vd-add-dept-btn:hover {
+  background: var(--blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(44,62,158,.45);
+}
+
+.vd-add-hod-btn {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 18px;
+  background: var(--purple-light); color: var(--purple);
+  border: 1.5px solid var(--purple-border);
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .84rem; font-weight: 600;
+  cursor: pointer; transition: all .22s;
+}
+.vd-add-hod-btn:hover {
+  background: var(--purple); color: var(--white);
+  border-color: var(--purple);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(107,70,193,.3);
+}
+
+/* ── Table ── */
+.vd-table-wrapper { overflow-x: auto; }
+
+.vd-table {
+  width: 100%; border-collapse: collapse;
+}
+.vd-table thead tr {
+  background: var(--input-bg);
+  border-bottom: 1.5px solid var(--border-color);
+}
+.vd-table th {
+  padding: 13px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-size: .75rem; font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase; letter-spacing: .7px;
+  text-align: left;
+}
+.vd-th-sno { width: 70px; text-align: center !important; }
+.vd-th-action { width: 230px; text-align: right !important; }
+
+.vd-row { border-bottom: 1px solid var(--border-color); transition: background .18s; }
+.vd-row:last-child { border-bottom: none; }
+.vd-row:hover { background: var(--input-bg); }
+
+.vd-table td {
+  padding: 15px 24px;
+  font-size: .92rem; color: var(--text-dark); font-weight: 600;
+  vertical-align: middle;
+}
+.vd-dept-name { font-weight: 700; color: var(--blue-dark); }
+.vd-hod-name  { color: var(--text-mid); font-weight: 600; }
+
+/* HOD inline edit */
+.vd-hod-edit-row { display: flex; align-items: center; gap: 6px; }
+.vd-hod-input {
+  flex: 1;
+  padding: 7px 10px;
+  background: var(--input-focus);
+  border: 1.5px solid var(--blue-primary);
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: .88rem; font-weight: 600; color: var(--text-dark);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44,62,158,.1);
+}
+.vd-hod-save, .vd-hod-cancel {
+  width: 30px; height: 30px;
+  border: none; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: .8rem; transition: all .18s;
+}
+.vd-hod-save   { background: var(--green-light); color: var(--green); }
+.vd-hod-save:hover { background: var(--green); color: var(--white); }
+.vd-hod-cancel { background: var(--input-bg); color: var(--text-mid); }
+.vd-hod-cancel:hover { background: var(--text-mid); color: var(--white); }
+
+/* Row Action Buttons */
+.vd-row-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+.vd-row-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 13px;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: .78rem; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+  border: 1.5px solid;
+}
+.vd-row-edit {
+  background: var(--input-focus); color: var(--blue-primary);
+  border-color: var(--border-color);
+}
+.vd-row-edit:hover {
+  background: var(--blue-primary); color: var(--white);
+  border-color: var(--blue-primary);
+  transform: translateY(-1px);
+}
+.vd-row-addhod {
+  background: var(--purple-light); color: var(--purple);
+  border-color: var(--purple-border);
+}
+.vd-row-addhod:hover {
+  background: var(--purple); color: var(--white);
+  border-color: var(--purple);
+  transform: translateY(-1px);
+}
+
+/* Empty state */
+.vd-empty {
+  text-align: center; padding: 48px !important;
+  color: var(--text-light); font-size: .92rem; font-weight: 500;
+}
+
+/* ── Modal ── */
+.vd-overlay {
+  position: fixed; inset: 0;
+  background: rgba(26,35,64,.45);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+.vd-modal {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  width: 100%; max-width: 420px;
+  box-shadow: 0 24px 64px rgba(44,62,158,.25);
+  overflow: hidden;
+  animation: modalPop .25s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes modalPop {
+  from { opacity:0; transform:scale(.94) translateY(10px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+
+.vd-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 26px 16px;
+  border-bottom: 1.5px solid var(--border-color);
+}
+.vd-modal-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem; font-weight: 700; color: var(--text-dark);
+}
+.vd-modal-dept-name { color: var(--blue-primary); }
+.vd-modal-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-light); font-size: 1rem;
+  display: flex; align-items: center; transition: color .18s;
+}
+.vd-modal-close:hover { color: var(--text-dark); }
+
+.vd-modal-body {
+  padding: 22px 26px;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.vd-modal-label {
+  font-size: .83rem; font-weight: 700; color: var(--text-dark);
+}
+.vd-modal-input {
+  padding: 12px 14px;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-input);
+  font-family: 'Nunito', sans-serif;
+  font-size: .92rem; font-weight: 500; color: var(--text-dark);
+  outline: none; transition: all .22s;
+}
+.vd-modal-input:focus {
+  background: var(--input-focus);
+  border-color: var(--blue-primary);
+  box-shadow: 0 0 0 3px rgba(44,62,158,.1);
+}
+
+.vd-modal-footer {
+  display: flex; gap: 10px; justify-content: flex-end;
+  padding: 16px 26px 22px;
+  border-top: 1.5px solid var(--border-color);
+}
+.vd-modal-cancel {
+  padding: 10px 20px;
+  background: var(--input-bg); color: var(--text-mid);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .85rem; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.vd-modal-cancel:hover { background: var(--border-color); color: var(--text-dark); }
+
+.vd-modal-confirm {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 20px;
+  background: var(--blue-primary); color: var(--white);
+  border: none; border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .85rem; font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: all .22s;
+}
+.vd-modal-confirm:hover { background: var(--blue-hover); transform: translateY(-1px); }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .vd-logo-area  { top: 18px; left: 18px; }
+  .vd-logo-img   { width: 46px; height: 46px; }
+  .vd-brand      { font-size: 1.35rem; }
+  .vd-logout-btn { top: 24px; right: 18px; padding: 9px 14px; font-size: .82rem; }
+  .vd-content    { padding: 110px 14px 40px; }
+
+  .vd-info-row   { grid-template-columns: 1fr; gap: 6px; }
+
+  .vd-dept-header-btns { flex-direction: column; gap: 6px; }
+
+  .vd-row-btn span { display: none; }
+  .vd-row-btn      { padding: 6px 10px; }
+
+  .vd-card-header  { flex-direction: column; align-items: flex-start; gap: 12px; }
+}

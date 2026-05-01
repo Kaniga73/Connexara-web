@@ -45,8 +45,8 @@ export default function CollegeDetails() {
       setErrors(newErrors);
       return;
     }
-    console.log("College Details:", formData);
-    // navigate("/next-page"); // uncomment and set your next route
+
+    navigate("/dashboard");
   };
 
   return (
@@ -179,8 +179,8 @@ export default function CollegeDetails() {
             {/* Next Button */}
             <div className="cd-form-footer">
               <button className="cd-next-btn" onClick={handleNext}>
-                <span>Next</span>
-                <FontAwesomeIcon icon={faArrowRight} />
+                <span>Submit</span>
+              
               </button>
             </div>
           </div>
