@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Dashboard.css";
 import loginlogo from "../assets/loginlogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Sidebar from "../Components/Sidebar";
 import {
   faPlus,
   faPenToSquare,
@@ -94,12 +95,11 @@ export default function Dashboard() {
   };
 
   return (
+      <div className="app-layout">
+    <Sidebar onLogout={handleLogout} />
     <div className="dash-bg">
 
-      <button className="dash-logout-btn" onClick={handleLogout}>
-        <FontAwesomeIcon icon={faRightFromBracket} />
-        <span>Logout</span>
-      </button>
+     
 
       <div className="dash-content">
         <div className="dash-page-header">
@@ -365,5 +365,6 @@ export default function Dashboard() {
         </div>
       )}
     </div>
-  );
+  </div>
+);
 }
