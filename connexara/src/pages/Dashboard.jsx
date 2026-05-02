@@ -89,6 +89,8 @@ export default function Dashboard() {
     setShowDeleteModal(null);
   };
 
+  const selectedCollege = colleges.find((c) => c.id === showDeleteModal);
+
   return (
     <div className="dash-bg">
       <div className="dash-content">
@@ -229,15 +231,46 @@ export default function Dashboard() {
           className="dash-modal-overlay"
           onClick={() => setShowDeleteModal(null)}
         >
-          <div className="dash-modal dash-modal-sm">
-            <p>
-              Delete{" "}
-              {
-                colleges.find((c) => c.id === showDeleteModal)?.name
-              }
-              ?
-            </p>
-            <button onClick={handleDelete}>Delete</button>
+          <div
+            className="dash-modal dash-modal-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="dash-modal-header">
+              <div className="dash-modal-heading">
+                <div className="dash-modal-icon">
+                  <FontAwesomeIcon icon={faTrash} />
+                </div>
+                <div>
+                  <h3 className="dash-modal-title">Confirm Delete</h3>
+                  <p className="dash-modal-subtitle">
+                    This action cannot be undone.
+                  </p>
+                </div>
+              </div>
+              <button
+                className="dash-modal-close"
+                onClick={() => setShowDeleteModal(null)}
+              >
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
+            </div>
+            <div className="dash-modal-body">
+              <p className="dash-modal-confirm-text">
+                Are you sure you want to delete{' '}
+                <strong>{selectedCollege?.name}</strong> from your college list?
+              </p>
+            </div>
+            <div className="dash-modal-footer">
+              <button
+                className="dash-modal-cancel"
+                onClick={() => setShowDeleteModal(null)}
+              >
+                Cancel
+              </button>
+              <button className="dash-modal-delete" onClick={handleDelete}>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}
