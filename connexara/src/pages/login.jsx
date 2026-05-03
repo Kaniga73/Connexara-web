@@ -18,7 +18,6 @@ import {
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    platform: "",
     email: "",
     password: "",
   });
@@ -44,10 +43,10 @@ export default function Login() {
   const handleSubmit = () => {
     console.log("Form submitted:", formData);
 
-    const { platform, email, password } = formData;
+    const { email, password } = formData;
 
     // check empty fields
-    if (!platform || !email || !password) {
+    if (!email || !password) {
       setErrorMsg("Please fill out all required fields");
       setShowError(true);
       return;
@@ -90,10 +89,7 @@ export default function Login() {
 
           <div className="login-form">
 
-          
-            
-
-            {/* Email */}
+              {/* Email */}
             <div className="form-group">
               <label className="form-label">Email Address</label>
               <div className="input-wrapper">
