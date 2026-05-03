@@ -90,23 +90,8 @@ export default function Login() {
 
           <div className="login-form">
 
-            {/* Platform */}
-            <div className="form-group">
-              <label className="form-label">Platform</label>
-              <div className="input-wrapper">
-                <span className="input-icon">
-                  <FontAwesomeIcon icon={faDesktop} />
-                </span>
-                <input
-                  type="text"
-                  name="platform"
-                  placeholder="Enter your platform"
-                  value={formData.platform}
-                  onChange={handleChange}
-                  className="form-input"
-                />
-              </div>
-            </div>
+          
+            
 
             {/* Email */}
             <div className="form-group">
