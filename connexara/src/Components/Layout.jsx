@@ -1,12 +1,11 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import "../styles/Layout.css";
+import { logoutUser } from "../api/authService";
 
 export default function Layout() {
-  const navigate = useNavigate();
-
   const handleLogout = () => {
-    navigate("/");
+    logoutUser();
   };
 
   return (
@@ -18,4 +17,4 @@ export default function Layout() {
       </div>
     </div>
   );
-}
+}

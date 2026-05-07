@@ -9,12 +9,14 @@ import {
   faLock,
   faEye,
   faEyeSlash,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faGoogle,
   faFacebookF,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { loginUser } from "../api/authService";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -24,6 +26,7 @@ export default function Login() {
 
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // popup states
   const [showError, setShowError] = useState(false);
@@ -40,9 +43,7 @@ export default function Login() {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-
+  const handleSubmit = async () => {
     const { email, password } = formData;
 
     // check empty fields
@@ -59,8 +60,21 @@ export default function Login() {
       return;
     }
 
-    // success
-    navigate("/dashboard");
+    // Call the login API
+    setIsLoading(true);
+    try {
+      await loginUser(email, password);
+      navigate("/dashboard");
+    } catch (error) {
+      const message =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Login failed. Please check your credentials.";
+      setErrorMsg(message);
+      setShowError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -157,8 +171,15 @@ export default function Login() {
               type="button"
               className="signin-btn"
               onClick={handleSubmit}
+              disabled={isLoading}
             >
-              Sign In
+              {isLoading ? (
+                <>
+                  <FontAwesomeIcon icon={faSpinner} spin /> Signing in...
+                </>
+              ) : (
+                "Sign In"
+              )}
             </button>
 
           </div>

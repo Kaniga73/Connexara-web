@@ -2,27 +2,66 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Hoddetails.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faEnvelope, faUserTie, faBuilding } from "@fortawesome/free-solid-svg-icons";
-
-const defaultDepts = [
-  { id: 1, dept: "CSE" },
-  { id: 2, dept: "ECE" },
-  { id: 3, dept: "EEE" },
-];
+import {
+  faArrowLeft,
+  faEnvelope,
+  faUserTie,
+  faBuilding,
+  faLock,
+  faSpinner,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { createHod } from "../api/hodService";
 
 export default function HodDetails() {
   const navigate = useNavigate();
   const location = useLocation();
-  const depts = location.state?.depts?.map((item) => ({ id: item.id, dept: item.dept })) || defaultDepts;
+  const depts = location.state?.depts || [];
+  const collegeId = location.state?.collegeId || "";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [deptName, setDeptName] = useState(depts[0]?.dept || "");
+  const [password, setPassword] = useState("");
+  const [departmentId, setDepartmentId] = useState(depts[0]?.id || "");
 
-  const handleSubmit = () => {
-    if (!name.trim() || !email.trim() || !deptName.trim()) return;
-    // TODO: persist HOD assignment to the selected department
-    navigate(-1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !email.trim() || !password.trim() || !departmentId) {
+      setErrorMsg("Please fill out all required fields.");
+      setShowError(true);
+      return;
+    }
+
+    if (!collegeId) {
+      setErrorMsg("College ID is missing. Please go back and try again.");
+      setShowError(true);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await createHod({
+        name: name.trim(),
+        email: email.trim(),
+        password: password.trim(),
+        collegeId,
+        departmentId,
+      });
+      setShowSuccess(true);
+    } catch (err) {
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        "Failed to create HOD. Please try again.";
+      setErrorMsg(message);
+      setShowError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -58,6 +97,7 @@ export default function HodDetails() {
               <div className="hd-field">
                 <FontAwesomeIcon icon={faEnvelope} className="hd-icon" />
                 <input
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter email address"
@@ -66,23 +106,93 @@ export default function HodDetails() {
             </label>
 
             <label className="hd-label">
-              Assign Dept
+              Password
               <div className="hd-field">
-                <FontAwesomeIcon icon={faBuilding} className="hd-icon" />
+                <FontAwesomeIcon icon={faLock} className="hd-icon" />
                 <input
-                  value={deptName}
-                  onChange={(e) => setDeptName(e.target.value)}
-                  placeholder="Type or select department"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
                 />
               </div>
             </label>
 
-            <button className="hd-submit-btn" onClick={handleSubmit}>
-              Save HOD
+            <label className="hd-label">
+              Assign Department
+              <div className="hd-field hd-select-field">
+                <FontAwesomeIcon icon={faBuilding} className="hd-icon" />
+                <select
+                  value={departmentId}
+                  onChange={(e) => setDepartmentId(e.target.value)}
+                >
+                  {depts.length === 0 ? (
+                    <option value="">No departments available</option>
+                  ) : (
+                    depts.map((d) => (
+                      <option key={d.id} value={d.id}>
+                        {d.name}
+                      </option>
+                    ))
+                  )}
+                </select>
+              </div>
+            </label>
+
+            <button
+              className="hd-submit-btn"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <FontAwesomeIcon icon={faSpinner} spin /> Saving...
+                </>
+              ) : (
+                "Save HOD"
+              )}
             </button>
           </div>
         </div>
       </div>
+
+      {/* ================= SUCCESS POPUP ================= */}
+      {showSuccess && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2 style={{ color: "#27ae60" }}>
+              <FontAwesomeIcon icon={faCheckCircle} /> Success
+            </h2>
+            <p>HOD has been assigned successfully!</p>
+            <button
+              className="popup-btn"
+              onClick={() => {
+                setShowSuccess(false);
+                navigate(-1);
+              }}
+            >
+              Go Back
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ================= ERROR POPUP ================= */}
+      {showError && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2>⚠️ Error</h2>
+            <p>{errorMsg}</p>
+            <button
+              className="popup-btn"
+              onClick={() => setShowError(false)}
+            >
+              Okay
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+

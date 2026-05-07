@@ -388,6 +388,54 @@
   transform: translateY(-1px);
 }
 
+/* ── Loading & Error ── */
+.vd-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 32px;
+  color: var(--text-light);
+  font-size: .95rem;
+  font-weight: 600;
+}
+.vd-loading-icon {
+  font-size: 1.8rem;
+  color: var(--blue-primary);
+}
+.vd-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 48px 32px;
+  text-align: center;
+}
+.vd-error p {
+  font-size: .95rem;
+  color: var(--red);
+  font-weight: 600;
+}
+.vd-retry-btn {
+  padding: 9px 24px;
+  background: var(--blue-primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: 'Poppins', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .22s ease;
+  box-shadow: var(--shadow-btn);
+}
+.vd-retry-btn:hover {
+  background: var(--blue-hover);
+  transform: translateY(-1px);
+}
+
 /* Empty state */
 .vd-empty {
   text-align: center; padding: 48px !important;
@@ -484,7 +532,34 @@
   box-shadow: var(--shadow-btn);
   transition: all .22s;
 }
-.vd-modal-confirm:hover { background: var(--blue-hover); transform: translateY(-1px); }
+.vd-modal-confirm:hover:not(:disabled) { background: var(--blue-hover); transform: translateY(-1px); }
+.vd-modal-confirm:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+/* ── Edit HOD modal extras ── */
+.vd-hod-server-error {
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--red);
+  background: var(--red-light);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #fed7d7;
+}
+
+.vd-field-error {
+  font-size: .76rem;
+  font-weight: 600;
+  color: var(--red);
+  padding-left: 2px;
+}
+
+.vd-input-error {
+  border-color: var(--red) !important;
+  background: #fff5f5 !important;
+}
+.vd-input-error:focus {
+  box-shadow: 0 0 0 3px rgba(229,62,62,.1) !important;
+}
 
 /* ── Responsive ── */
 @media (max-width: 600px) {

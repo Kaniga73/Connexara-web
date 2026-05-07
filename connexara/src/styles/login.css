@@ -333,6 +333,12 @@
   box-shadow: var(--shadow-btn);
 }
 
+.signin-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .popup-overlay {
   position: fixed;
   top: 0;

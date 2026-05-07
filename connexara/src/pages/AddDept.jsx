@@ -1,22 +1,52 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/AddDept.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPlus, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faPlus,
+  faPenToSquare,
+  faTrash,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+import { createDepartment } from "../api/departmentService";
 
 export default function AddDept() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const collegeId = location.state?.collegeId;
+
   const [department, setDepartment] = useState("");
   const [departments, setDepartments] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editingName, setEditingName] = useState("");
+  const [isAdding, setIsAdding] = useState(false);
+  const [addError, setAddError] = useState("");
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     const name = department.trim();
     if (!name) return;
 
-    setDepartments((prev) => [...prev, { id: Date.now(), name }]);
-    setDepartment("");
+    if (!collegeId) {
+      setAddError("College ID is missing. Please go back and try again.");
+      return;
+    }
+
+    setIsAdding(true);
+    setAddError("");
+    try {
+      const created = await createDepartment({ collegeId, name });
+      setDepartments((prev) => [...prev, created]);
+      setDepartment("");
+    } catch (err) {
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        "Failed to add department. Please try again.";
+      setAddError(message);
+    } finally {
+      setIsAdding(false);
+    }
   };
 
   const startInlineEdit = (item) => {
@@ -65,14 +95,34 @@ export default function AddDept() {
               className="ad-input"
               type="text"
               value={department}
-              onChange={(e) => setDepartment(e.target.value)}
+              onChange={(e) => {
+                setDepartment(e.target.value);
+                if (addError) setAddError("");
+              }}
               placeholder="Enter department name"
-              onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+              onKeyDown={(e) => e.key === "Enter" && !isAdding && handleAdd()}
+              disabled={isAdding}
             />
-            <button className="ad-submit-btn" onClick={handleAdd}>
-              <FontAwesomeIcon icon={faPlus} /> {editingId ? "Save" : "Add"}
+            <button
+              className="ad-submit-btn"
+              onClick={handleAdd}
+              disabled={isAdding}
+            >
+              {isAdding ? (
+                <>
+                  <FontAwesomeIcon icon={faSpinner} spin /> Adding...
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon icon={faPlus} /> Add
+                </>
+              )}
             </button>
           </div>
+
+          {addError && (
+            <p className="ad-error-msg">⚠️ {addError}</p>
+          )}
 
           <div className="ad-dept-section">
             <div className="ad-dept-header">
@@ -129,3 +179,4 @@ export default function AddDept() {
     </div>
   );
 }
+

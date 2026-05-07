@@ -10,7 +10,11 @@ import {
   faHashtag,
   faLocationDot,
   faMap,
+  faEnvelope,
+  faSpinner,
+  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { createCollege } from "../api/collegeService";
 
 export default function CollegeDetails() {
   const navigate = useNavigate();
@@ -18,11 +22,16 @@ export default function CollegeDetails() {
   const [formData, setFormData] = useState({
     collegeCode: "",
     name: "",
+    emailAddress: "",
     city: "",
     state: "",
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,23 +39,52 @@ export default function CollegeDetails() {
     if (errors[name]) setErrors({ ...errors, [name]: "" });
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const validate = () => {
     const newErrors = {};
     if (!formData.collegeCode.trim()) newErrors.collegeCode = "College code is required";
     if (!formData.name.trim()) newErrors.name = "College name is required";
+    if (!formData.emailAddress.trim()) {
+      newErrors.emailAddress = "Email address is required";
+    } else if (!isValidEmail(formData.emailAddress)) {
+      newErrors.emailAddress = "Please enter a valid email address";
+    }
     if (!formData.city.trim()) newErrors.city = "City is required";
     if (!formData.state.trim()) newErrors.state = "State is required";
     return newErrors;
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    navigate("/dashboard");
+    setIsLoading(true);
+    try {
+      await createCollege({
+        name: formData.name.trim(),
+        emailAddress: formData.emailAddress.trim(),
+        collegeCode: formData.collegeCode.trim(),
+        city: formData.city.trim(),
+        state: formData.state.trim(),
+      });
+      setShowSuccess(true);
+    } catch (error) {
+      const message =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Failed to create college. Please try again.";
+      setErrorMsg(message);
+      setShowError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -122,6 +160,33 @@ export default function CollegeDetails() {
               </div>
             </div>
 
+            {/* Email Address */}
+            <div className="cd-form-row">
+              <label className="cd-label" htmlFor="emailAddress">
+                Email Address
+              </label>
+              <div className="cd-input-group">
+                <div className={`cd-input-wrapper ${errors.emailAddress ? "cd-input-error" : ""}`}>
+                  <span className="cd-input-icon">
+                    <FontAwesomeIcon icon={faEnvelope} />
+                  </span>
+                  <input
+                    id="emailAddress"
+                    type="email"
+                    name="emailAddress"
+                    className="cd-input"
+                    placeholder="Enter college email"
+                    value={formData.emailAddress}
+                    onChange={handleChange}
+                    autoComplete="off"
+                  />
+                </div>
+                {errors.emailAddress && (
+                  <span className="cd-error-msg">{errors.emailAddress}</span>
+                )}
+              </div>
+            </div>
+
             {/* City */}
             <div className="cd-form-row">
               <label className="cd-label" htmlFor="city">
@@ -176,16 +241,62 @@ export default function CollegeDetails() {
               </div>
             </div>
 
-            {/* Next Button */}
+            {/* Submit Button */}
             <div className="cd-form-footer">
-              <button className="cd-next-btn" onClick={handleNext}>
-                <span>Submit</span>
-              
+              <button
+                className="cd-next-btn"
+                onClick={handleNext}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <FontAwesomeIcon icon={faSpinner} spin /> Submitting...
+                  </>
+                ) : (
+                  <span>Submit</span>
+                )}
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ================= SUCCESS POPUP ================= */}
+      {showSuccess && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2 style={{ color: "#27ae60" }}>
+              <FontAwesomeIcon icon={faCheckCircle} /> Success
+            </h2>
+            <p>College has been registered successfully!</p>
+            <button
+              className="popup-btn"
+              onClick={() => {
+                setShowSuccess(false);
+                navigate("/dashboard");
+              }}
+            >
+              Go to Dashboard
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ================= ERROR POPUP ================= */}
+      {showError && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2>⚠️ Error</h2>
+            <p>{errorMsg}</p>
+            <button
+              className="popup-btn"
+              onClick={() => setShowError(false)}
+            >
+              Okay
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
