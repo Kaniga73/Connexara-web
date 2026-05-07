@@ -148,6 +148,17 @@ export default function Dashboard() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="dash-bg">
+        <div className="dash-page-loading">
+          <FontAwesomeIcon icon={faSpinner} spin className="dash-page-loading-icon" />
+          <p>Loading Dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="dash-bg">
       <div className="dash-content">
@@ -262,13 +273,6 @@ export default function Dashboard() {
                             >
                               <FontAwesomeIcon icon={faEye} />
                               <span>View</span>
-                            </button>
-                            <button
-                              className="dash-btn dash-edit-btn"
-                              onClick={() => openEditModal(college)}
-                            >
-                              <FontAwesomeIcon icon={faPenToSquare} />
-                              <span>Edit</span>
                             </button>
                             <button
                               className="dash-btn dash-delete-btn"

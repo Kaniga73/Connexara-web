@@ -43,7 +43,7 @@
    ============================== */
 .dash-bg {
   min-height: 100vh;
-  background: transparent;
+  background: #ffff;
   font-family: 'Nunito', sans-serif;
   padding: 0;
 }
@@ -116,7 +116,7 @@
    Main Content Area
    ============================== */
 .dash-content {
-  max-width: 1000;
+  max-width: none;
   width: 100%;
   margin: 0;
   padding: 24px 24px 40px;
@@ -780,6 +780,23 @@
 .dash-loading-icon {
   font-size: 1.8rem;
   color: var(--blue-primary);
+}
+
+.dash-page-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 24px;
+  background: linear-gradient(135deg, rgba(44, 62, 158, 0.1), rgba(255, 255, 255, 0.95));
+  color: var(--blue-dark);
+  text-align: center;
+}
+
+.dash-page-loading-icon {
+  font-size: 3rem;
 }
 
 /* ==============================

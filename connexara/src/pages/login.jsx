@@ -186,6 +186,15 @@ export default function Login() {
         </div>
       </div>
 
+      {isLoading && (
+        <div className="login-loading-overlay">
+          <div className="login-loading-panel">
+            <div className="login-spinner" />
+            <p className="login-loading-text">Signing you in...</p>
+          </div>
+        </div>
+      )}
+
       {/* ================= POPUP ================= */}
       {showError && (
         <div className="popup-overlay">

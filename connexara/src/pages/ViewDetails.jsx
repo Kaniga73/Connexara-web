@@ -103,6 +103,7 @@ export default function ViewDetails() {
     setCollegeEditError("");
     try {
       const updated = await updateCollege(id, {
+        collegeCode: collegeEdit.collegeCode?.trim(),
         name: collegeEdit.name?.trim(),
         emailAddress: collegeEdit.emailAddress?.trim(),
         city: collegeEdit.city?.trim(),
@@ -267,7 +268,17 @@ export default function ViewDetails() {
               {/* College Code */}
               <div className="vd-info-row">
                 <span className="vd-info-label">College Code</span>
-                <span className="vd-code-badge">{college.collegeCode}</span>
+                {editingCollege ? (
+                  <input
+                    className="vd-info-input"
+                    value={collegeEdit.collegeCode || ""}
+                    onChange={(e) =>
+                      setCollegeEdit({ ...collegeEdit, collegeCode: e.target.value })
+                    }
+                  />
+                ) : (
+                  <span className="vd-info-value">{college.collegeCode}</span>
+                )}
               </div>
 
               {/* College Name */}
@@ -361,75 +372,65 @@ export default function ViewDetails() {
             </div>
           </div>
 
-          {/* Table */}
-          <div className="vd-table-wrapper">
-            {deptsLoading ? (
-              <div className="vd-loading">
-                <FontAwesomeIcon icon={faSpinner} spin className="vd-loading-icon" />
-                <span>Loading departments...</span>
-              </div>
-            ) : deptsError ? (
-              <div className="vd-error">
-                <p>⚠️ {deptsError}</p>
-                <button className="vd-retry-btn" onClick={fetchDepartments}>
-                  Retry
-                </button>
-              </div>
-            ) : (
+          {/* Departments / HOD info */}
+          {deptsLoading ? (
+            <div className="vd-loading">
+              <FontAwesomeIcon icon={faSpinner} spin className="vd-loading-icon" />
+              <span>Loading departments...</span>
+            </div>
+          ) : deptsError ? (
+            <div className="vd-error">
+              <p>⚠️ {deptsError}</p>
+              <button className="vd-retry-btn" onClick={fetchDepartments}>
+                Retry
+              </button>
+            </div>
+          ) : depts.length === 0 ? (
+            <div className="vd-empty">No departments added yet.</div>
+          ) : (
+            <div className="vd-table-wrapper">
               <table className="vd-table">
                 <thead>
                   <tr>
-                    <th className="vd-th-sno">S.No</th>
+                    <th className="vd-th-sno">#</th>
                     <th>Department</th>
                     <th>HOD</th>
                     <th className="vd-th-action">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {depts.length === 0 ? (
-                    <tr>
-                      <td colSpan="4" className="vd-empty">No departments added yet.</td>
-                    </tr>
-                  ) : (
-                    depts.map((d, index) => {
-                      const hod = hodsMap[d.id];
-                      return (
-                        <tr key={d.id} className="vd-row">
-                          <td className="vd-th-sno">{index + 1}</td>
-                          <td className="vd-dept-name">{d.name}</td>
-                          <td>
-                            <span className="vd-hod-name">
-                              {hod ? hod.name : "—"}
-                            </span>
-                          </td>
-                          <td className="vd-th-action">
-                            <div className="vd-row-actions">
-                              <button
-                                className="vd-row-btn vd-row-edit"
-                                onClick={() => openEditDept(d)}
-                              >
-                                <FontAwesomeIcon icon={faPenToSquare} />
-                                <span>Edit Dept</span>
-                              </button>
-                              {hod && (
-                                <button
-                                  className="vd-row-btn vd-row-edit"
-                                  onClick={() => openEditHod(hod)}
-                                >
-                                  <FontAwesomeIcon icon={faPenToSquare} />
-                                  <span>Edit HOD</span>
-                                </button>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
+                  {depts.map((d, index) => {
+                    const hod = hodsMap[d.id];
+                    return (
+                      <tr key={d.id} className="vd-row">
+                        <td className="vd-th-sno">{index + 1}</td>
+                        <td className="vd-dept-name">{d.name}</td>
+                        <td className="vd-hod-name">{hod ? hod.name : "Not assigned"}</td>
+                        <td className="vd-row-actions">
+                          <button
+                            className="vd-row-btn vd-row-edit"
+                            onClick={() => openEditDept(d)}
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                            <span>Edit Dept</span>
+                          </button>
+                          {hod && (
+                            <button
+                              className="vd-row-btn vd-row-edit"
+                              onClick={() => openEditHod(hod)}
+                            >
+                              <FontAwesomeIcon icon={faPenToSquare} />
+                              <span>Edit HOD</span>
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 

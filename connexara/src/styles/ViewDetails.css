@@ -87,8 +87,9 @@
 
 /* ── Content ── */
 .vd-content {
-  max-width: 860px;
-  margin: 0 auto;
+  max-width: none;
+  width: 100%;
+  margin: 0;
   padding: 24px 24px 40px;
   display: flex; flex-direction: column; gap: 28px;
   animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both;
@@ -137,11 +138,11 @@
 
 /* ── Card ── */
 .vd-card {
-  background: var(--white);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  border: 1px solid rgba(255,255,255,.85);
-  overflow: hidden;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  overflow: visible;
 }
 
 .vd-card-header {

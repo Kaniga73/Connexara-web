@@ -36,7 +36,10 @@ export default function CollegeDetails() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    if (errors[name]) setErrors({ ...errors, [name]: "" });
+
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const isValidEmail = (email) => {
@@ -46,26 +49,42 @@ export default function CollegeDetails() {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.collegeCode.trim()) newErrors.collegeCode = "College code is required";
-    if (!formData.name.trim()) newErrors.name = "College name is required";
+
+    if (!formData.collegeCode.trim()) {
+      newErrors.collegeCode = "College code is required";
+    }
+
+    if (!formData.name.trim()) {
+      newErrors.name = "College name is required";
+    }
+
     if (!formData.emailAddress.trim()) {
       newErrors.emailAddress = "Email address is required";
     } else if (!isValidEmail(formData.emailAddress)) {
       newErrors.emailAddress = "Please enter a valid email address";
     }
-    if (!formData.city.trim()) newErrors.city = "City is required";
-    if (!formData.state.trim()) newErrors.state = "State is required";
+
+    if (!formData.city.trim()) {
+      newErrors.city = "City is required";
+    }
+
+    if (!formData.state.trim()) {
+      newErrors.state = "State is required";
+    }
+
     return newErrors;
   };
 
   const handleNext = async () => {
     const newErrors = validate();
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
     setIsLoading(true);
+
     try {
       await createCollege({
         name: formData.name.trim(),
@@ -74,12 +93,14 @@ export default function CollegeDetails() {
         city: formData.city.trim(),
         state: formData.state.trim(),
       });
+
       setShowSuccess(true);
     } catch (error) {
       const message =
         error.response?.data?.message ||
         error.response?.data?.error ||
         "Failed to create college. Please try again.";
+
       setErrorMsg(message);
       setShowError(true);
     } finally {
@@ -89,33 +110,40 @@ export default function CollegeDetails() {
 
   return (
     <div className="cd-bg">
-
       {/* Main Content */}
       <div className="cd-content">
         {/* Form Card */}
         <div className="cd-card">
+          
+          {/* Header */}
           <div className="cd-card-top">
-            <button className="cd-back-btn" onClick={() => navigate(-1)}>
-              <FontAwesomeIcon icon={faArrowLeft} />
-              <span>Back</span>
-            </button>
-            <div>
+            <div className="cd-title-group">
               <h1 className="cd-page-title">College Details</h1>
-              <p className="cd-page-sub">Fill in the details to register a new college</p>
+              <p className="cd-page-sub">
+                Fill in the details to register a new college
+              </p>
             </div>
           </div>
 
+          {/* Form */}
           <div className="cd-form">
+
             {/* College Code */}
             <div className="cd-form-row">
               <label className="cd-label" htmlFor="collegeCode">
                 College Code
               </label>
+
               <div className="cd-input-group">
-                <div className={`cd-input-wrapper ${errors.collegeCode ? "cd-input-error" : ""}`}>
+                <div
+                  className={`cd-input-wrapper ${
+                    errors.collegeCode ? "cd-input-error" : ""
+                  }`}
+                >
                   <span className="cd-input-icon">
                     <FontAwesomeIcon icon={faHashtag} />
                   </span>
+
                   <input
                     id="collegeCode"
                     type="text"
@@ -127,22 +155,31 @@ export default function CollegeDetails() {
                     autoComplete="off"
                   />
                 </div>
+
                 {errors.collegeCode && (
-                  <span className="cd-error-msg">{errors.collegeCode}</span>
+                  <span className="cd-error-msg">
+                    {errors.collegeCode}
+                  </span>
                 )}
               </div>
             </div>
 
-            {/* Name */}
+            {/* College Name */}
             <div className="cd-form-row">
               <label className="cd-label" htmlFor="name">
                 Name
               </label>
+
               <div className="cd-input-group">
-                <div className={`cd-input-wrapper ${errors.name ? "cd-input-error" : ""}`}>
+                <div
+                  className={`cd-input-wrapper ${
+                    errors.name ? "cd-input-error" : ""
+                  }`}
+                >
                   <span className="cd-input-icon">
                     <FontAwesomeIcon icon={faBuilding} />
                   </span>
+
                   <input
                     id="name"
                     type="text"
@@ -154,22 +191,31 @@ export default function CollegeDetails() {
                     autoComplete="off"
                   />
                 </div>
+
                 {errors.name && (
-                  <span className="cd-error-msg">{errors.name}</span>
+                  <span className="cd-error-msg">
+                    {errors.name}
+                  </span>
                 )}
               </div>
             </div>
 
-            {/* Email Address */}
+            {/* Email */}
             <div className="cd-form-row">
               <label className="cd-label" htmlFor="emailAddress">
                 Email Address
               </label>
+
               <div className="cd-input-group">
-                <div className={`cd-input-wrapper ${errors.emailAddress ? "cd-input-error" : ""}`}>
+                <div
+                  className={`cd-input-wrapper ${
+                    errors.emailAddress ? "cd-input-error" : ""
+                  }`}
+                >
                   <span className="cd-input-icon">
                     <FontAwesomeIcon icon={faEnvelope} />
                   </span>
+
                   <input
                     id="emailAddress"
                     type="email"
@@ -181,8 +227,11 @@ export default function CollegeDetails() {
                     autoComplete="off"
                   />
                 </div>
+
                 {errors.emailAddress && (
-                  <span className="cd-error-msg">{errors.emailAddress}</span>
+                  <span className="cd-error-msg">
+                    {errors.emailAddress}
+                  </span>
                 )}
               </div>
             </div>
@@ -192,11 +241,17 @@ export default function CollegeDetails() {
               <label className="cd-label" htmlFor="city">
                 City
               </label>
+
               <div className="cd-input-group">
-                <div className={`cd-input-wrapper ${errors.city ? "cd-input-error" : ""}`}>
+                <div
+                  className={`cd-input-wrapper ${
+                    errors.city ? "cd-input-error" : ""
+                  }`}
+                >
                   <span className="cd-input-icon">
                     <FontAwesomeIcon icon={faLocationDot} />
                   </span>
+
                   <input
                     id="city"
                     type="text"
@@ -208,8 +263,11 @@ export default function CollegeDetails() {
                     autoComplete="off"
                   />
                 </div>
+
                 {errors.city && (
-                  <span className="cd-error-msg">{errors.city}</span>
+                  <span className="cd-error-msg">
+                    {errors.city}
+                  </span>
                 )}
               </div>
             </div>
@@ -219,11 +277,17 @@ export default function CollegeDetails() {
               <label className="cd-label" htmlFor="state">
                 State
               </label>
+
               <div className="cd-input-group">
-                <div className={`cd-input-wrapper ${errors.state ? "cd-input-error" : ""}`}>
+                <div
+                  className={`cd-input-wrapper ${
+                    errors.state ? "cd-input-error" : ""
+                  }`}
+                >
                   <span className="cd-input-icon">
                     <FontAwesomeIcon icon={faMap} />
                   </span>
+
                   <input
                     id="state"
                     type="text"
@@ -235,14 +299,28 @@ export default function CollegeDetails() {
                     autoComplete="off"
                   />
                 </div>
+
                 {errors.state && (
-                  <span className="cd-error-msg">{errors.state}</span>
+                  <span className="cd-error-msg">
+                    {errors.state}
+                  </span>
                 )}
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Footer Buttons */}
             <div className="cd-form-footer">
+
+              {/* Back Button */}
+              <button
+                className="cd-back-btn"
+                onClick={() => navigate(-1)}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+                <span>Back</span>
+              </button>
+
+              {/* Submit Button */}
               <button
                 className="cd-next-btn"
                 onClick={handleNext}
@@ -250,7 +328,8 @@ export default function CollegeDetails() {
               >
                 {isLoading ? (
                   <>
-                    <FontAwesomeIcon icon={faSpinner} spin /> Submitting...
+                    <FontAwesomeIcon icon={faSpinner} spin />
+                    Submitting...
                   </>
                 ) : (
                   <span>Submit</span>
@@ -261,14 +340,16 @@ export default function CollegeDetails() {
         </div>
       </div>
 
-      {/* ================= SUCCESS POPUP ================= */}
+      {/* Success Popup */}
       {showSuccess && (
         <div className="popup-overlay">
           <div className="popup-box">
             <h2 style={{ color: "#27ae60" }}>
               <FontAwesomeIcon icon={faCheckCircle} /> Success
             </h2>
+
             <p>College has been registered successfully!</p>
+
             <button
               className="popup-btn"
               onClick={() => {
@@ -282,12 +363,14 @@ export default function CollegeDetails() {
         </div>
       )}
 
-      {/* ================= ERROR POPUP ================= */}
+      {/* Error Popup */}
       {showError && (
         <div className="popup-overlay">
           <div className="popup-box">
             <h2>⚠️ Error</h2>
+
             <p>{errorMsg}</p>
+
             <button
               className="popup-btn"
               onClick={() => setShowError(false)}
